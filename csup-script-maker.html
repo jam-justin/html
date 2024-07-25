@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<div>
+		Paste the Jam team URL here:
+	</div>
+	<div>
+		<input type="text" id="url-input" oninput="onInput()" />
+	</div>
+	<div id="result" style="display: none;">
+		<div>
+			OK, now add this code to your web pages:
+		</div>
+		<div id="result-value"></div>
+	</div>
+	<style type="text/css">
+		body {
+			background: #eee;
+		}
+		#url-input {
+			min-width: 600px;
+			font-size: 16px;
+		}
+		#result {
+			display: inline-block;
+			margin-top: 24px;
+		}
+
+		#result-value {
+			padding: 12px;
+			background: #ddd;
+			font-size: 14px;
+		}
+	</style>
+	<script type="text/javascript">
+		const codeSnippetTemplate = "" +
+				'<code>&lt;script async defer' +
+				'	src="https://js.jam.dev/support/fe3c951b-02ce-430e-913f-46c311468bbf.js"' +
+				'&gt;' + '&lt;' + '/script&gt;</co' + 'de>';
+
+    function onInput() {
+    	const validInput = getValidInput();
+
+    	if (validInput) {
+    		showResult(validInput);
+    	} else {
+    		hideResult();
+    	}
+    }
+
+    function showResult(teamID) {
+    	const resultEl = document.getElementById('result');
+    	const resultValueEl = document.getElementById('result-value');
+    	const resultValue = codeSnippetTemplate.replace('TEAMID', teamID);
+
+    	resultValueEl.innerHTML = resultValue;
+    	resultEl.style = "display: block;";
+    }
+
+    function hideResult() {
+    	const resultEl = document.getElementById('result');
+
+    	if (!resultEl) {
+    		return;
+    	}
+
+    	resultEl.innerHTML = '';
+    	resultEl.style = "display: none;";
+    }
+
+    function getValidInput() {
+    	const urlInput = document.getElementById('url-input');
+
+    	if (!urlInput) {
+    		return;
+    	}
+
+    	const input = urlInput.value.trim();
+
+    	if (!input.includes('/')) {
+    		return null;
+    	}
+
+    	const teamID = input.substring(input.lastIndexOf('/') + 1);
+
+    	if (teamID.length !== 36) {
+    		return null;
+    	}
+
+    	return teamID;
+    }
+	</script>
+</body>
+</html>
+
+
+
