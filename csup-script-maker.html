@@ -59,12 +59,13 @@
 
     function hideResult() {
     	const resultEl = document.getElementById('result');
+    	const resultValueEl = document.getElementById('result-value');
 
-    	if (!resultEl) {
+    	if (!resultEl || !resultValueEl) {
     		return;
     	}
 
-    	resultEl.innerHTML = '';
+    	resultValueEl.innerHTML = '';
     	resultEl.style = "display: none;";
     }
 
